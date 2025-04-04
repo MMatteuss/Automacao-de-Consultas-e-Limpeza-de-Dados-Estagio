@@ -2,7 +2,6 @@ import pandas as pd
 import pyautogui as py
 import clipboard
 from time import sleep
-import pyperclip
 import apaga99linhas
 
 """
@@ -23,14 +22,14 @@ Tempos reduzidos ao mínimo viável para operação estável.
 # Configuração de segurança do PyAutoGUI
 py.PAUSE = 0.5  # Pequena pausa entre cada comando do pyautogui
 py.FAILSAFE = True  # Permite abortar movendo mouse para canto superior esquerdo
-
-for c in range(128):
+c=0
+while c!= 5:
     captcha_value = 1  # Valor padrão para bypass de captcha
     
     # 1. Preparação inicial
-    sleep(0.5)
-    py.click(639, 753)  # Foca no navegador
-    sleep(1.5)
+    sleep(0.1)
+    py.click(594,747)  # Foca no navegador
+    sleep(0.3)
     
     # 2. Atualizar página
     py.press('f5')
@@ -38,11 +37,11 @@ for c in range(128):
     
     # 3. Selecionar arquivo
     py.click(938, 231)  # Botão 'escolher arquivo'
-    sleep(1.5)
+    sleep(1)
     py.click(347, 192)  # Seleciona arquivo na janela
-    sleep(1.5)
+    sleep(0.3)
     py.click(509, 445)  # Confirma seleção
-    sleep(1.5)
+    sleep(0.3)
     py.click(499, 281)  # Clica no campo captcha
     
     # 4. Verificar captcha AUTOMATICAMENTE
@@ -50,16 +49,16 @@ for c in range(128):
     captcha_detectado = False
     
     for _ in range(max_tentativas):
-        sleep(0.3)
+        sleep(2)
         py.hotkey('ctrl', 'a')
-        sleep(0.2)
+        sleep(0.5)
         py.hotkey('ctrl', 'c')
-        sleep(0.3)
+        sleep(0.5)
         select = clipboard.paste()
         
         if 'Selecione' in select or 'Select' in select:
             captcha_detectado = True
-            sleep(0.5)  # Espera 0.5s antes de tentar novamente
+            sleep(1)  # Espera 1s antes de tentar novamente
         else:
             captcha_detectado = False
             break
@@ -71,11 +70,11 @@ for c in range(128):
     
     # 5. Executar consulta
     py.click(735, 345)  # Botão Consultar
-    sleep(3)  # Tempo crítico - manter suficiente para processamento
+    sleep(6)  # Tempo crítico - manter suficiente para processamento
     
     # 6. Copiar resultados - Versão otimizada mas confiável
     py.click(735, 345)  # Botão Consultar
-    sleep(3.5)  # Tempo suficiente para a consulta processar (reduzido de 5s)
+    sleep(2.5)  # Tempo suficiente para a consulta processar (reduzido de 5s)
     
     # Seleção inteligente com tempos ajustados
     py.moveTo(102, 464)  # Posição inicial (primeira linha)
@@ -90,7 +89,7 @@ for c in range(128):
     
     # Movimento vertical otimizado
     py.moveTo(1232, 745, duration=1.5)  # Reduzido de 3s
-    sleep(2)  # Pequena estabilização
+    sleep(1.5)  # Pequena estabilização
     
     # Ajuste final mais rápido
     py.moveTo(1250, 673, duration=0.8)  # Reduzido de 3s
@@ -103,28 +102,32 @@ for c in range(128):
     sleep(0.7)  # Tempo suficiente para copiar (reduzido de 1s)
     
     # 7. Colar no Excel e limpar
-    py.click(696,741)  # Foca no Excel
-    sleep(1)
+    py.click(640,742)  # Foca no Excel
+    sleep(0.1)
     py.press('esc')
-    sleep(0.5)
+    sleep(0.1)
     py.press('down')
     py.hotkey('ctrl', 'up')
-    sleep(0.3)
+    sleep(0.1)
     py.press('down')
-    sleep(0.3)
+    sleep(0.1)
     py.hotkey('ctrl', 'v')  # Cola dados
-    sleep(0.5)
+    sleep(0.2)
     py.hotkey('ctrl', 'down')
-    sleep(0.3)
+    sleep(0.1)
     py.press('down')
-    sleep(0.3)
+    sleep(0.1)
     py.click(738,30) # Salvar
     sleep(1)
+
+    # 9. Salvar arquivo Excel (NOVO)
+    py.hotkey('ctrl', 's')  # Salva o arquivo
+    sleep(0.3)  # Tempo para o salvamento
     
     # 8. Limpeza de linhas
     apaga99linhas.apagarLinhas()
     sleep(1)  # Tempo para finalizar processamento
+
+    c= c+1
     
-    # 9. Salvar arquivo Excel (NOVO)
-    py.hotkey('ctrl', 's')  # Salva o arquivo
-    sleep(1.5)  # Tempo para o salvamento
+    

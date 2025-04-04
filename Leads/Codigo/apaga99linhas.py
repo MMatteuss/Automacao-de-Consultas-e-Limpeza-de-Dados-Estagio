@@ -18,8 +18,9 @@ def apagarLinhas():
     HORA = datetime.now()
     quantidade_linhas = len(df)
 
-    caminho_planilha_sem_primeiras_linhas = r"C:\Users\user\Downloads\Leads\Para apagar.csv" # Altere para o caminho onde deseja salvar a planilha
+    caminho_planilha_sem_primeiras_linhas = r"C:\Users\user\Downloads\Leads\Para apagar - Copia.csv" # Altere para o caminho onde deseja salvar a planilha
     df.to_csv(caminho_planilha_sem_primeiras_linhas, index=False)
 
     print(HORA)
     print(f"As primeiras 99 linhas foram removidas da planilha com sucesso. Quantidade atual de linhas: {quantidade_linhas}")
+# apagarLinhas()
